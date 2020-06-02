@@ -25,6 +25,13 @@ namespace RedisCache
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // serviço de cache sendo ativado por meioda chamada AddDistributedRedisCache 
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("ConnRedis");
+                options.InstanceName = "API_Name-";
+            });
+
             services.AddControllers();
         }
 

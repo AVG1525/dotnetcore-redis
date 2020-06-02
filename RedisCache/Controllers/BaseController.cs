@@ -1,6 +1,9 @@
-﻿namespace RedisCache.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace RedisCache.Controllers
 {
-    public class BaseController
+    [ApiController]
+    public class BaseController : ControllerBase
     {
     }
 }

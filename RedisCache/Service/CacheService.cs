@@ -16,16 +16,16 @@ namespace RedisCache.Service
 
         public async Task<string> GetCacheValueAsync(string key)
         {
-            var dbRedis = _connectionMultiplexer.GetDatabase();
-            return await dbRedis.StringGetAsync(key);
+            var cache = _connectionMultiplexer.GetDatabase();
+            return await cache.StringGetAsync(key);
         }
 
         public async Task<bool> SetCacheValueAsync(CacheRequest cacheRequest)
         {
             TimeSpan timeToLife = TimeSpan.FromSeconds(cacheRequest.ExpirationTimeSeconds);
-            var dbRedis = _connectionMultiplexer.GetDatabase();
+            var cache = _connectionMultiplexer.GetDatabase();
 
-            return await dbRedis.StringSetAsync(cacheRequest.Key, cacheRequest.Values, timeToLife);
+            return await cache.StringSetAsync(cacheRequest.Key, cacheRequest.Values, timeToLife);
         }
     }
 }

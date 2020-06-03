@@ -2,8 +2,8 @@
 {
     public class CacheRequest
     {
-        public string Key { get; private set; }
-        public string Values { get; private set; }
-        public double ExpirationTimeSeconds { get; private set; }
+        public string Key { get; set; }
+        public string Values { get; set; }
+        public double ExpirationTimeSeconds { get; set; }
     }
 }

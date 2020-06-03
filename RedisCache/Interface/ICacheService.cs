@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using RedisCache.Entitie.Request;
+﻿using RedisCache.Entitie.Request;
+using System.Threading.Tasks;
 
 namespace RedisCache.Interface
 {
     public interface ICacheService
     {
-        string GetCache(IDistributedCache cache, string key);
-        bool SetCache(IDistributedCache cache, CacheRequest cacheRequest);
+        Task<string> GetCacheValueAsync(string key);
+        Task<bool> SetCacheValueAsync(CacheRequest cacheRequest);
     }
 }

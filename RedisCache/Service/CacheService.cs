@@ -1,33 +1,31 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using RedisCache.Entitie.Request;
+﻿using RedisCache.Entitie.Request;
 using RedisCache.Interface;
+using StackExchange.Redis;
 using System;
+using System.Threading.Tasks;
 
 namespace RedisCache.Service
 {
     public class CacheService : ICacheService
     {
-        public string GetCache(IDistributedCache cache, string key)
+        private readonly IConnectionMultiplexer _connectionMultiplexer;
+        public CacheService(IConnectionMultiplexer connectionMultiplexer)
         {
-            return cache.GetString(key);
+            _connectionMultiplexer = connectionMultiplexer;
         }
 
-        public bool SetCache(IDistributedCache cache, CacheRequest cacheRequest)
+        public async Task<string> GetCacheValueAsync(string key)
         {
-            try { 
-                DistributedCacheEntryOptions timeToLife =
-                              new DistributedCacheEntryOptions();
+            var dbRedis = _connectionMultiplexer.GetDatabase();
+            return await dbRedis.StringGetAsync(key);
+        }
 
-                timeToLife.SetAbsoluteExpiration(TimeSpan.FromSeconds(cacheRequest.ExpirationTimeSeconds));
+        public async Task<bool> SetCacheValueAsync(CacheRequest cacheRequest)
+        {
+            TimeSpan timeToLife = TimeSpan.FromSeconds(cacheRequest.ExpirationTimeSeconds);
+            var dbRedis = _connectionMultiplexer.GetDatabase();
 
-                cache.SetString(cacheRequest.Key, cacheRequest.Values, timeToLife);
-                
-                return true;
-            } catch (Exception)
-            {
-                return false;
-            }
-
+            return await dbRedis.StringSetAsync(cacheRequest.Key, cacheRequest.Values, timeToLife);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
 using RedisCache.Entitie.Request;
 using RedisCache.Interface;
+using System.Threading.Tasks;
 
 namespace RedisCache.Controller
 {
@@ -16,15 +16,17 @@ namespace RedisCache.Controller
         }
 
         [HttpGet("{key}")]
-        public IActionResult Get([FromServices]IDistributedCache cache, string key)
+        public async Task<IActionResult> Get(string key)
         {
-            return Ok(_cacheService.GetCache(cache, key));
+            var value = await _cacheService.GetCacheValueAsync(key);
+            return !string.IsNullOrWhiteSpace(value) ? (IActionResult) Ok(value) : NotFound(value);
         }
 
         [HttpPost]
-        public IActionResult Post([FromServices]IDistributedCache cache, [FromBody]CacheRequest cacheRequest)
+        public async Task<IActionResult> Post([FromBody]CacheRequest cacheRequest)
         {
-            return Ok(_cacheService.SetCache(cache, cacheRequest));
+            bool ret = await _cacheService.SetCacheValueAsync(cacheRequest);
+            return ret ? (IActionResult) Ok(ret) : BadRequest(ret);
         }
     }
 }

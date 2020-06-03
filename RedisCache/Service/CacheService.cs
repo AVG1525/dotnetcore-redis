@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
+using RedisCache.Entitie.Request;
 using RedisCache.Interface;
 using System;
 
@@ -11,15 +12,22 @@ namespace RedisCache.Service
             return cache.GetString(key);
         }
 
-        public string SetCache(IDistributedCache cache, string key, string value)
+        public bool SetCache(IDistributedCache cache, CacheRequest cacheRequest)
         {
-            DistributedCacheEntryOptions timeToLife =
-                          new DistributedCacheEntryOptions();
+            try { 
+                DistributedCacheEntryOptions timeToLife =
+                              new DistributedCacheEntryOptions();
 
-            return cache.SetStringAsync(
-                key, 
-                value,
-                timeToLife.SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+                timeToLife.SetAbsoluteExpiration(TimeSpan.FromSeconds(cacheRequest.ExpirationTimeSeconds));
+
+                cache.SetString(cacheRequest.Key, cacheRequest.Values, timeToLife);
+                
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

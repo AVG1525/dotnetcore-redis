@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
@@ -23,3 +24,30 @@ Global
 		SolutionGuid = {A0CDF837-95C9-4AA9-8C6A-7CC28655C93D}
 	EndGlobalSection
 EndGlobal
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisCache", "RedisCache\RedisCache.csproj", "{4BA57C8D-4BB4-4D3F-9B57-B26483631953}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BA57C8D-4BB4-4D3F-9B57-B26483631953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA57C8D-4BB4-4D3F-9B57-B26483631953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA57C8D-4BB4-4D3F-9B57-B26483631953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA57C8D-4BB4-4D3F-9B57-B26483631953}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0CDF837-95C9-4AA9-8C6A-7CC28655C93D}
+	EndGlobalSection
+EndGlobal
+>>>>>>> 7986d7460f94cf82dbf6fa2c98197d85972f7983
